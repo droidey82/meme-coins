@@ -15,7 +15,7 @@ ALERT_RECEIVER_EMAIL = os.getenv("ALERT_RECEIVER_EMAIL")
 
 def send_email_alert(subject, body):
     try:
-        with smtplib.SMTP_SSL('smtp.gmail.com", 465) as smtp:
+       with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login(EMAIL_USER, EMAIL_PASS)
             message = f"Subject: {subject}\n\n{body}"
             smtp.sendmail(EMAIL_USER, ALERT_RECEIVER_EMAIL, message)
