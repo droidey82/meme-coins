@@ -3,12 +3,11 @@ import smtplib
 import time
 import os
 
-# === Environment Variables ===
 DEXSCREENER_API_URL = os.getenv("DEXSCREENER_API_URL", "https://api.dexscreener.com/latest/dex/pairs")
-SCAN_INTERVAL = int(os.getenv("SCAN_INTERVAL", "300"))  # seconds
-MAX_AGE_MINUTES = int(os.getenv("MAX_PAIR_AGE", "15"))  # age limit in minutes
-MIN_VOLUME = float(os.getenv("MIN_VOLUME", "15000"))    # 24h volume threshold
-MIN_LIQUIDITY = float(os.getenv("MIN_LIQUIDITY", "10000"))  # min liquidity
+SCAN_INTERVAL = int(os.getenv("SCAN_INTERVAL", "300"))
+MAX_AGE_MINUTES = int(os.getenv("MAX_PAIR_AGE", "15"))
+MIN_VOLUME = float(os.getenv("MIN_VOLUME", "15000"))
+MIN_LIQUIDITY = float(os.getenv("MIN_LIQUIDITY", "10000"))
 EMAIL_USER = os.getenv("EMAIL_USER")
 EMAIL_PASS = os.getenv("EMAIL_PASS")
 ALERT_RECEIVER_EMAIL = os.getenv("ALERT_RECEIVER_EMAIL")
