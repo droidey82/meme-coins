@@ -64,6 +64,7 @@ def filter_new_pairs(pairs):
     print(f"🆕 New tokens found: {found}")
 
 def main():
+    print("✅ Deployment test passed")  # 👈 Inserted here
     print("🔍 New Coin Scanner Started")
     print(f"Scan Interval: {SCAN_INTERVAL}s | Max Age: {MAX_AGE_MINUTES}m | Min Vol: {MIN_VOLUME} | Min Liq: {MIN_LIQUIDITY}")
 
