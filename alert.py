@@ -1,6 +1,6 @@
+import os
 import smtplib
 from email.mime.text import MIMEText
-import os
 
 def send_email_alert(token, chain, entry, tp1, tp2, sl):
     sender = os.getenv("EMAIL_USER")
@@ -15,6 +15,7 @@ Chain: {chain}
 🎯 TP1: {tp1}
 🎯 TP2: {tp2}
 🛑 SL: {sl}
+
 Signal triggered by volume spike + demand zone bounce.
     '''
     msg = MIMEText(body)
