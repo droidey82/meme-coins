@@ -3,23 +3,23 @@ import smtplib
 import time
 import os
 
-# === Config from Environment Variables ===
+# === Environment Variables ===
 DEXSCREENER_API_URL = os.getenv("DEXSCREENER_API_URL", "https://api.dexscreener.com/latest/dex/pairs")
-SCAN_INTERVAL = int(os.getenv("SCAN_INTERVAL", "300"))
-MAX_AGE_MINUTES = int(os.getenv("MAX_PAIR_AGE", "15"))
-MIN_VOLUME = float(os.getenv("MIN_VOLUME", "15000"))
-MIN_LIQUIDITY = float(os.getenv("MIN_LIQUIDITY", "10000"))
+SCAN_INTERVAL = int(os.getenv("SCAN_INTERVAL", "300"))  # seconds
+MAX_AGE_MINUTES = int(os.getenv("MAX_PAIR_AGE", "15"))  # age limit in minutes
+MIN_VOLUME = float(os.getenv("MIN_VOLUME", "15000"))    # 24h volume threshold
+MIN_LIQUIDITY = float(os.getenv("MIN_LIQUIDITY", "10000"))  # min liquidity
 EMAIL_USER = os.getenv("EMAIL_USER")
 EMAIL_PASS = os.getenv("EMAIL_PASS")
 ALERT_RECEIVER_EMAIL = os.getenv("ALERT_RECEIVER_EMAIL")
 
 def send_email_alert(subject, body):
     try:
-       with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login(EMAIL_USER, EMAIL_PASS)
             message = f"Subject: {subject}\n\n{body}"
             smtp.sendmail(EMAIL_USER, ALERT_RECEIVER_EMAIL, message)
-        print(f"📧 Alert sent: {subject}")
+            print(f"📧 Alert sent: {subject}")
     except Exception as e:
         print(f"❌ Email failed: {e}")
 
@@ -66,8 +66,8 @@ def filter_new_pairs(pairs):
 
 def main():
     print("🔍 New Coin Scanner Started")
-    print(f"Interval: {SCAN_INTERVAL}s | Age ≤ {MAX_AGE_MINUTES}m | Vol ≥ {MIN_VOLUME} | Liq ≥ {MIN_LIQUIDITY}")
-    
+    print(f"Scan Interval: {SCAN_INTERVAL}s | Max Age: {MAX_AGE_MINUTES}m | Min Vol: {MIN_VOLUME} | Min Liq: {MIN_LIQUIDITY}")
+
     while True:
         try:
             print("🔄 Scanning Dexscreener...")
@@ -76,7 +76,7 @@ def main():
             print(f"💤 Sleeping for {SCAN_INTERVAL} seconds...\n")
             time.sleep(SCAN_INTERVAL)
         except Exception as e:
-            print(f"❌ Error in loop: {e}")
+            print(f"❌ Error in main loop: {e}")
             time.sleep(30)
 
 if __name__ == "__main__":
